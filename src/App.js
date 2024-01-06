@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      Hii yashraj OM SHANTI
+      OM SHANTI
     </div>
   );
 }
