@@ -4,13 +4,14 @@ import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Button } from "@mui/material";
 
-function HomeSectionCarousel({ data }) {
+function HomeSectionCarousel({ data, SectionName }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const responsive = {
-    0: { items: 1 },
-    720: { items: 3 },
-    1024: { items: 4.5 },
+    0: { items: 1.5 },
+    580:{ items: 2.5 },
+    820: { items: 3.5 },
+    1210: { items: 4.5 },
   };
 
   const slidePrev = () => {
@@ -28,6 +29,7 @@ function HomeSectionCarousel({ data }) {
 
   return (
     <div className=" border">
+      <h2 className="text-2xl font-extrabold text-gray-800 py-5 px-7">{SectionName}</h2>
       <div className="relative p-5">
         <AliceCarousel
           items={items}

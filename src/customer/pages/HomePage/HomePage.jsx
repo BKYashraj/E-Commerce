@@ -9,11 +9,11 @@ function HomePage() {
       <MainCarousel />
 
       <div className="space-y-10 py-20 flex flex-col justify-center px-5 lg:px-10">
-        <HomeSectionCarousel data={mens_kurta}/>
-        <HomeSectionCarousel data={mens_kurta}/>
-        <HomeSectionCarousel data={mens_kurta}/>
-        <HomeSectionCarousel data={mens_kurta}/>
-        <HomeSectionCarousel data={mens_kurta}/>
+        <HomeSectionCarousel data={mens_kurta} SectionName={"Men's kurta"}/>
+        <HomeSectionCarousel data={mens_kurta} SectionName={"Men's Pant"}/>
+        <HomeSectionCarousel data={mens_kurta} SectionName={"Girl's Ghagras"}/>
+        <HomeSectionCarousel data={mens_kurta} SectionName={"Men's Shirt"}/>
+        <HomeSectionCarousel data={mens_kurta} SectionName={"Women's Saree"}/>
       </div>
     </div>
   );
