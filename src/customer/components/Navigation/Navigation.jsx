@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 
 const navigation = {
   categories: [
@@ -140,27 +141,40 @@ const navigation = {
 };
 
 function classNames(...classes) {
-  
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navigation() {
-
+  const navigate = useNavigate();
   const [anchorE1, setAnchorE1] = useState(null);
-  const [OpenAuthModel, setOpenAuthModel] = useState(false)
-  const openUserMenu = Boolean(anchorE1)
+  const [OpenAuthModel, setOpenAuthModel] = useState(false);
+  const openUserMenu = Boolean(anchorE1);
 
-  const handleCloseUserMenu = (event) =>{
+  const handleCloseUserMenu = (event) => {
     setAnchorE1(null);
-  }
+  };
+
+  // const handleMyOrderClick=()=>{
+  //   handleCloseUserMenu()
+  //   navigate("/account/order")
+  // }
 
   const handleUserClick = (event) => {
-    setAnchorE1(null);
-  }
+    setAnchorE1(event.currentTarget);
+  };
+
+  // const handleUserClick = (event) => {
+  //   setAnchorE1(null);
+  // };
 
   const handleOpen = () => {
     setOpenAuthModel(true);
-  }
+  };
+
+  const handleCategoryClick = (category, section, item, close) => {
+    navigate(`/${category.id}/${section.id}/${item.id}`);
+    close();
+  };
 
   const [open, setOpen] = useState(false);
 
@@ -348,10 +362,7 @@ export default function Navigation() {
           Get free delivery on orders over 500
         </p> */}
 
-        <nav
-          aria-label="Top"
-          className="mx-auto "
-        >
+        <nav aria-label="Top" className="mx-auto ">
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center px-11">
               <button
@@ -382,7 +393,7 @@ export default function Navigation() {
                 <div className="flex h-full space-x-8">
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
-                      {({ open }) => (
+                      {({ open, close }) => (
                         <>
                           <div className="relative flex">
                             <Popover.Button
@@ -467,19 +478,20 @@ export default function Navigation() {
                                                 key={item.name}
                                                 className="flex"
                                               >
-                                                <p 
-                                                  // onClick={()=>
-                                                  //   handleCategoryClick(
-                                                  //     category,
-                                                  //     section,
-                                                  //     item,
-                                                  //     close
-                                                  //   )
-                                                  // }
+                                                <p
+                                                  handleCategoryClick
+                                                  onClick={() =>
+                                                    handleCategoryClick(
+                                                      category,
+                                                      section,
+                                                      item,
+                                                      close
+                                                    )
+                                                  }
                                                   className="cursor-pointer hover:text-grey-800"
                                                 >
                                                   {item.name}
-                                                  </p>
+                                                </p>
                                               </li>
                                             ))}
                                           </ul>
@@ -510,55 +522,52 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-        {true ? (
-          <div>
-            <Avatar
-              className="text-white"
-              onClick={handleUserClick}
-              aria-controls={open ? "basic-menu": undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              // I use onClick 2 times so underline is there
-              // onClick={handleUserClick}
-              sx={{
-              bgcolor: deepPurple[500],
-              color: "white",
-              cursor: "pointer",
-            }}
-            >
-                 YD
-           </Avatar>
-           
-          <Menu  id="basic-menu"
-            anchorEl={anchorE1}
-            open={openUserMenu}
-            onClose={handleCloseUserMenu}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }} >
+                  {true ? (
+                    <div>
+                      <Avatar
+                        className="text-white"
+                        onClick={handleUserClick}
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        // I use onClick 2 times so underline is there
+                        // onClick={handleUserClick}
+                        sx={{
+                          bgcolor: deepPurple[500],
+                          color: "white",
+                          cursor: "pointer",
+                        }}
+                      >
+                        YD
+                      </Avatar>
 
-        <MenuItem onClick={handleCloseUserMenu} >
-        Profile
-        </MenuItem>
+                      <Menu
+                        id="basic-menu"
+                        anchorEl={anchorE1}
+                        open={openUserMenu}
+                        onClose={handleCloseUserMenu}
+                        MenuListProps={{
+                          "aria-labelledby": "basic-button",
+                        }}
+                      >
+                        <MenuItem onClick={handleCloseUserMenu}>
+                          Profile
+                        </MenuItem>
 
-        <MenuItem>
-        My Orders
-        </MenuItem>
+                        <MenuItem onClick={()=>navigate("/account/order")}>My Orders</MenuItem>
 
-        <MenuItem >Logout</MenuItem>
-        </Menu>
-
-        </div>
-
-        ): (
-         <Button
-          onClick={handleOpen}
-          className="text-sm font-medium text-gray-700 ☐ hover: text-gray-800"
-         >
-        Signin
-        </Button>
-        )}
-        </div>
+                        <MenuItem>Logout</MenuItem>
+                      </Menu>
+                    </div>
+                  ) : (
+                    <Button
+                      onClick={handleOpen}
+                      className="text-sm font-medium text-gray-700 ☐ hover: text-gray-800"
+                    >
+                      Signin
+                    </Button>
+                  )}
+                </div>
 
                 {/* Search */}
                 <div className="flex lg:ml-6">
@@ -574,7 +583,6 @@ export default function Navigation() {
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
                   <Button className="group -m-2 flex items-center p-2">
-                    
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
@@ -583,7 +591,7 @@ export default function Navigation() {
                       0
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
-                    </Button>
+                  </Button>
                 </div>
               </div>
             </div>

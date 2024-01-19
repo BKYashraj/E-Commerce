@@ -1,9 +1,14 @@
 import React from "react";
 import CardItem from './CartItem';
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 
 const Cart = () => {
+  const navigate = useNavigate();
+  const HandleClick=()=>{
+    navigate("/checkout?step=2")
+  }
   return (
     <div className="lg:grid grid-cols-3 lg:px-16 relative">
       <div className="lg:col-span-2 lg:px-5 bg-white">
@@ -38,6 +43,7 @@ const Cart = () => {
           </div>
 
           <Button
+            onClick={HandleClick}
             variant="contained"
             type="submit"
             className="w-full"

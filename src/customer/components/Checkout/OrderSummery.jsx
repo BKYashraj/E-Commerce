@@ -2,7 +2,9 @@ import React from 'react'
 import AddressCard from '../AddressCard/AddressCard'
 import CardItem from '../Cart/CartItem'
 import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 const OrderSummery = () => {
+  
   return (
     <div>
         <div className='p-5 shadow-lg rounded-s-md border'>
@@ -42,6 +44,7 @@ const OrderSummery = () => {
           </div>
 
           <Button
+            
             variant="contained"
             type="submit"
             className="w-full"
