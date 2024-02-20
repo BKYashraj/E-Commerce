@@ -11,7 +11,6 @@ import OrderDetails from "./customer/components/Order/OrderDetails";
 import { Route, Routes } from "react-router-dom";
 import CustermerRouters from "./Routers/CustermerRouters";
 
-// yashraj
 function App() {
   return (
     <div className="">

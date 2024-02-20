@@ -9,6 +9,10 @@ import {
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
+import AuthModal from "../../Auth/AuthModal";
+
+
+
 
 const navigation = {
   categories: [
@@ -147,7 +151,7 @@ function classNames(...classes) {
 export default function Navigation() {
   const navigate = useNavigate();
   const [anchorE1, setAnchorE1] = useState(null);
-  const [OpenAuthModel, setOpenAuthModel] = useState(false);
+  const [openAuthModal, setOpenAuthModal] = useState(false);
   const openUserMenu = Boolean(anchorE1);
 
   const handleCloseUserMenu = (event) => {
@@ -168,9 +172,12 @@ export default function Navigation() {
   // };
 
   const handleOpen = () => {
-    setOpenAuthModel(true);
+    setOpenAuthModal(true);
   };
 
+const handleClose = () => {
+  setOpenAuthModal(false);
+};
   const handleCategoryClick = (category, section, item, close) => {
     navigate(`/${category.id}/${section.id}/${item.id}`);
     close();
@@ -522,7 +529,7 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {true ? (
+                  {false ? (
                     <div>
                       <Avatar
                         className="text-white"
@@ -598,6 +605,9 @@ export default function Navigation() {
           </div>
         </nav>
       </header>
+
+      <AuthModal handleClose={handleClose} open={openAuthModal}/>
+
     </div>
   );
 }
